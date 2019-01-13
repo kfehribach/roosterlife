@@ -1,20 +1,34 @@
 int highLightThreshold = 75;
 int lowLightThreshold = 300;
 int displayTopBluePixel = 10;
+int sensorAnalogPin = A0;
+int highLightPin = 12;
+int normalLightPin = 11;
+int lowLightPin = 10;
 
-void checkLightSensor(int currentLight)
+void lightSensor_init()
 {
+  pinMode(highLightPin, OUTPUT);  
+  pinMode(normalLightPin, OUTPUT);  
+  pinMode(lowLightPin, OUTPUT);
+}
+
+String checkLightSensor()
+{
+  int currentLight = analogRead(sensorAnalogPin);
+//  int currentLightD = digitalRead(22);
+//  return String(currentLightD);
   if(currentLight < highLightThreshold){
     highLight();
-    writeMainText("High");
+    return "High";
   }
   else if(currentLight > lowLightThreshold){
     lowLight();
-    writeMainText("Low");
+    return "Low";
   }
   else {
     normalLight();
-    writeMainText("Normal");
+    return "Normal";
   }
 }
 
